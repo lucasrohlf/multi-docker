@@ -22,3 +22,17 @@ after_success:
     - docker push lucasrohlf/multi-nginx
     - docker push lucasrohlf/multi-server
     - docker push lucasrohlf/multi-worker
+
+# Tell AWS to download and run the images
+deploy: 
+    edge: true
+    provider: elasticbeanstalk
+    region: us-east-2
+    app: multi-docker
+    env: MultiDocker-env
+    bucket_name: elasticbeanstalk-us-east-2-825842704967
+    bucket_path: docker-multi
+    access_key_id: $AWS_ACCESS_KEY
+    secret_access_key: $AWS_SECRET_KEY
+    on:
+        branch: master
